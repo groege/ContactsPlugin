@@ -275,7 +275,7 @@ namespace Plugin.Contacts
 
 
 
-            protected override Expression VisitMemberAccess(MemberExpression memberExpression)
+            protected override Expression VisitMember(MemberExpression memberExpression)
             {
                 TableFindResult result = this.tableFinder.Find(memberExpression);
                 if (this.table == null)
@@ -300,7 +300,7 @@ namespace Plugin.Contacts
                 else
                     throw new NotSupportedException();
 
-                return base.VisitMemberAccess(memberExpression);
+                return base.VisitMember(memberExpression);
             }
 
             protected override Expression VisitConstant(ConstantExpression constant)

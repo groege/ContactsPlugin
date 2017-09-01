@@ -8,7 +8,14 @@ namespace Plugin.Contacts
     /// </summary>
     public class CrossContacts
     {
-        static Lazy<IContacts> Implementation = new Lazy<IContacts>(() => CreateContacts(), System.Threading.LazyThreadSafetyMode.PublicationOnly);
+        private static Type _type;
+
+        public static void SetImplementation<TContactsImpl>() where TContactsImpl : IContacts
+        {
+            _type = typeof(TContactsImpl);
+        }
+
+        static Lazy<IContacts> Implementation = new Lazy<IContacts>(() => (IContacts)Activator.CreateInstance(_type), System.Threading.LazyThreadSafetyMode.PublicationOnly);
 
         /// <summary>
         /// Current settings to use
@@ -24,15 +31,6 @@ namespace Plugin.Contacts
                 }
                 return ret;
             }
-        }
-
-        static IContacts CreateContacts()
-        {
-#if PORTABLE
-        return null;
-#else
-            return new ContactsImplementation();
-#endif
         }
 
         internal static Exception NotImplementedInReferenceAssembly()

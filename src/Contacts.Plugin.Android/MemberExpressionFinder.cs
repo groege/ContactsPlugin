@@ -36,12 +36,12 @@ namespace Plugin.Contacts
         private readonly ITableFinder tableFinder;
 
 
-        protected override Expression VisitMemberAccess(MemberExpression member)
+        protected override Expression VisitMember(MemberExpression member)
         {
             if (this.tableFinder.IsSupportedType(member.Member.DeclaringType))
                 this.expressions.Add(member);
 
-            return base.VisitMemberAccess(member);
+            return base.VisitMember(member);
         }
 
         internal static List<MemberExpression> Find(Expression expression, ITableFinder tableFinder)

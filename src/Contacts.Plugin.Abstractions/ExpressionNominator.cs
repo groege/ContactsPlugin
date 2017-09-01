@@ -20,20 +20,12 @@ using System.Linq.Expressions;
 
 namespace Plugin.Contacts
 {
-#if __IOS__
-    [Foundation.Preserve(AllMembers = true)]
-#elif __ANDROID__
-    [Android.Runtime.Preserve(AllMembers=true)]
-#endif
     internal class EvaluationNominator
       : ExpressionVisitor
     {
         internal EvaluationNominator(Func<Expression, bool> predicate)
         {
-            if (predicate == null)
-                throw new ArgumentNullException("predicate");
-
-            this.predicate = predicate;
+            this.predicate = predicate ?? throw new ArgumentNullException("predicate");
         }
 
         public HashSet<Expression> Nominate(Expression expression)

@@ -225,9 +225,9 @@ namespace Plugin.Contacts
         }
 
 
-        protected override Expression VisitMemberAccess(MemberExpression node)
+        protected override Expression VisitMember(MemberExpression node)
         {
-            node = (MemberExpression)base.VisitMemberAccess(node);
+            node = (MemberExpression)base.VisitMember(node);
 
             if (this.table == null)
             {

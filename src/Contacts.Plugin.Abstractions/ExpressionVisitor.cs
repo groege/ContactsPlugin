@@ -22,11 +22,6 @@ using System.Linq.Expressions;
 
 namespace Plugin.Contacts
 {
-#if __IOS__
-    [Foundation.Preserve(AllMembers = true)]
-#elif __ANDROID__
-    [Android.Runtime.Preserve(AllMembers=true)]
-#endif
     internal abstract class ExpressionVisitor
     {
         public virtual Expression Visit(Expression expression)
